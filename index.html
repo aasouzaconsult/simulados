@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Simulados - Tudo em Um!</title>
+    <style>
+        /* --- ESTILOS CSS --- */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        main {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        li a {
+            display: block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        li a:hover {
+            background-color: #0056b3;
+        }
+
+        #simulado-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .question-block {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .question-block p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .question-block label {
+            display: block;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #result-container {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #4CAF50;
+            background-color: #e6ffe6;
+            border-radius: 8px;
+        }
+
+        #result-container h3 {
+            color: #28a745;
+        }
+
+        #back-to-list {
+            background-color: #6c757d;
+        }
+
+        #back-to-list:hover {
+            background-color: #5a6268;
+        }
+
+        /* Estilo do popup */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        #popup h3 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        #popup p {
+            font-size: 18px;
+        }
+
+        #popup button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #popup button:hover {
+            background-color: #218838;
+        }
+
+        #popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo à Plataforma de Simulados do Prof. Alex Souza!</h1>
+    </header>
+
+    <main id="simulados-list">
+        <h2>Escolha um Simulado:</h2>
+        <ul>
+            <li><a href="#" data-simulado="sql">Simulado de SQL</a></li>
+            <li><a href="#" data-simulado="data-modeling">Simulado de Modelagem de Dados</a></li>
+            <li><a href="#" data-simulado="python">Simulado de Python</a></li>
+            <li><a href="#" data-simulado="generative-ai">Simulado de IA Generativa</a></li>
+        </ul>
+    </main>
+
+    <div id="simulado-container" style="display: none;">
+        <h2 id="simulado-title"></h2>
+        <form id="quiz-form"></form>
+        <button id="submit-quiz" style="display: none;">Finalizar Simulado</button>
+    </div>
+
+    <!-- Popup para exibir resultado -->
+    <div id="popup-overlay"></div>
+    <div id="popup">
+        <h3 id="popup-message"></h3>
+        <p id="popup-percentage"></p>
+        <button id="popup-ok">OK</button>
+    </div>
+
+    <script>
+        const quizzes = {
+            sql: {
+                title: "Simulado de SQL",
+                questions: [
+                    {
+                        question: "São tipos de relacionamento (joins)...",
+                        options: ["JOIN", "JOIN LEFT", "JOIN RIGHT", "CROSS JOINS"],
+                        correct: "JOIN"
+                    },
+                    {
+                        question: "A função básica de um gatilho ou trigger, em um banco de dados relacional, é",
+                        options: ["Realizar a compilação de todos comandos SQL presentes no banco de dados e armazenar os comandos compilados", 
+                                  "Verificar o grau de normalização de todas as tabelas de um banco de dados, assegurando-se do respeito às formas normais desejadas",
+                                  "Verificar a correção das definições presentes no dicionário de dados, apontando eventuais erros de semântica",
+                                  "Executar comandos previamente declarados, quando da ocorrência de um evento no banco de dados, também especificado em sua definição"],
+                        correct: "Executar comandos previamente declarados, quando da ocorrência de um evento no banco de dados, também especificado em sua definição"
+                    },
+                    {
+                        question: "As transações em um banco de dados relacional devem respeitar as propriedades representadas pelo acrônimo ACID, sendo que o D significa durabilidade, segundo a qual",
+                        options: ["Cada transação deve preservar a correção e consistência globais do banco de dados", 
+                                  "Todas as operações de uma transação devem ser inseridas, ou então nenhuma das operações da transação será inserida no banco de dados", 
+                                  "Após uma transação ter sido finalizada com sucesso, suas alterações no banco de dados tornam-se persistentes, mesmo se houver queda ou falha do sistema", 
+                                  "Uma transação não deve influenciar nas outras transações, evitando a ocorrência de condições de erro"],
+                        correct: "Após uma transação ter sido finalizada com sucesso, suas alterações no banco de dados tornam-se persistentes, mesmo se houver queda ou falha do sistema"
+                    },
+                    {
+                        question: "Com SQL, como você pode selecionar todos os registros de uma tabela chamada 'Pessoas' onde o 'Sobrenome' está alfabeticamente entre (e incluindo) 'Araújo' e 'Souza'?",
+                        options: ["SELECT Sobrenome>'Araújo' AND Sobrenomes<'Souza' FROM Pessoas", 
+                                  "SELECT * FROM Pessoas WHERE Sobrenome>'Araújo' AND Sobrenome<'Souza’", 
+                                  "SELECT * FROM Pessoas WHERE Sobrenome='Araújo' OR SOBRENOME='Souza’", 
+                                  "SELECT * FROM Pessoas WHERE Sobrenome BETWEEN 'Araújo' AND 'Souza’"],
+                        correct: "SELECT * FROM Pessoas WHERE Sobrenome BETWEEN 'Araújo' AND 'Souza’"
+                    },
+                    {
+                        question: "Tendo a tabela Pessoas (CPF, Nome, Sobrenome, Telefone e Email), qual script SQL é usado para alterar a estrutura da coluna Email VARCHAR(60) para VARCHAR(70)?",
+                        options: ["ADD COLUMN Email VARCHAR(70) INTO Pessoas", 
+                                  "ALTER TABLE Pessoas DROP Email VARCHAR(70)", 
+                                  "ALTER TABLE Pessoas ALTER COLUMN Email VARCHAR(70)", 
+                                  "ALTER TABLE Pessoas ADD Email VARCHAR(70)"],
+                        correct: "ALTER TABLE Pessoas ALTER COLUMN Email VARCHAR(70)"
+                    }
+                ]
+            },
+            'data-modeling': {
+                title: "Simulado de Modelagem de Dados",
+                questions: [
+                    {
+                        question: "Qual é o principal objetivo da modelagem de dados?",
+                        options: ["Criar interfaces de usuário", "Organizar e estruturar dados", "Desenvolver algoritmos complexos", "Gerenciar redes de computadores"],
+                        correct: "Organizar e estruturar dados"
+                    },
+                    {
+                        question: "O que representa uma 'entidade' em um modelo ER (Entidade-Relacionamento)?",
+                        options: ["Uma linha de código", "Um objeto ou conceito do mundo real", "Um tipo de dado", "Uma conexão de rede"],
+                        correct: "Um objeto ou conceito do mundo real"
+                    },
+                    {
+                        question: "O que significa 'cardinalidade' em um relacionamento de banco de dados?",
+                        options: ["O número de colunas em uma tabela", "O número de linhas em uma tabela", "O número de instâncias de uma entidade que podem estar associadas a instâncias de outra entidade", "A ordem dos dados"],
+                        correct: "O número de instâncias de uma entidade que podem estar associadas a instâncias de outra entidade"
+                    }
+                ]
+            },
+            python: {
+                title: "Simulado de Python",
+                questions: [
+                    {
+                        question: "Qual palavra-chave é usada para definir uma função em Python?",
+                        options: ["func", "define", "def", "function"],
+                        correct: "def"
+                    },
+                    {
+                        question: "Como você escreve um comentário de linha única em Python?",
+                        options: ["// Este é um comentário", "/* Este é um comentário */", "# Este é um comentário", "-- Este é um comentário"],
+                        correct: "# Este é um comentário"
+                    },
+                    {
+                        question: "Qual tipo de dado é usado para armazenar uma sequência de caracteres em Python?",
+                        options: ["int", "float", "boolean", "str"],
+                        correct: "str"
+                    }
+                ]
+            },
+            'generative-ai': {
+                title: "Simulado de IA Generativa",
+                questions: [
+                    {
+                        question: "O que é IA Generativa?",
+                        options: ["Inteligência Artificial que analisa dados existentes", "Inteligência Artificial que cria novos conteúdos (texto, imagens, áudio, etc.)", "Inteligência Artificial focada em reconhecimento de padrões", "Inteligência Artificial usada para automação de tarefas repetitivas"],
+                        correct: "Inteligência Artificial que cria novos conteúdos (texto, imagens, áudio, etc.)"
+                    },
+                    {
+                        question: "Qual das seguintes tecnologias é comumente usada em IA Generativa para criar imagens realistas?",
+                        options: ["Regressão Linear", "Máquinas de Vetores de Suporte (SVM)", "Redes Generativas Adversariais (GANs)", "Árvores de Decisão"],
+                        correct: "Redes Generativas Adversariais (GANs)"
+                    },
+                    {
+                        question: "Qual é o termo para o processo em que um modelo de IA Generativa aprende a partir de uma vasta quantidade de dados para gerar novas saídas?",
+                        options: ["Regressão", "Classificação", "Treinamento", "Normalização"],
+                        correct: "Treinamento"
+                    }
+                ]
+            },
+            // outros simulados vão aqui
+        };
+
+        const simuladosList = document.getElementById('simulados-list');
+        const simuladoContainer = document.getElementById('simulado-container');
+        const simuladoTitle = document.getElementById('simulado-title');
+        const quizForm = document.getElementById('quiz-form');
+        const submitQuizBtn = document.getElementById('submit-quiz');
+        const popup = document.getElementById('popup');
+        const popupMessage = document.getElementById('popup-message');
+        const popupPercentage = document.getElementById('popup-percentage');
+        const popupOverlay = document.getElementById('popup-overlay');
+        const popupOkButton = document.getElementById('popup-ok');
+
+        let currentQuiz = null;
+
+        // Função para carregar e exibir um simulado
+        function loadQuiz(quizId) {
+            currentQuiz = quizzes[quizId];
+            if (!currentQuiz) {
+                console.error("Simulado não encontrado para o ID: " + quizId);
+                return;
+            }
+
+            simuladosList.style.display = 'none';
+            simuladoContainer.style.display = 'block';
+            submitQuizBtn.style.display = 'block';
+            popupOverlay.style.display = 'none';
+            popup.style.display = 'none';
+
+            simuladoTitle.textContent = currentQuiz.title;
+            quizForm.innerHTML = '';
+
+            currentQuiz.questions.forEach((q, index) => {
+                const questionBlock = document.createElement('div');
+                questionBlock.classList.add('question-block');
+                questionBlock.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
+
+                q.options.forEach(option => {
+                    const label = document.createElement('label');
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = `question-${index}`;
+                    input.value = option;
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(option));
+                    questionBlock.appendChild(label);
+                });
+                quizForm.appendChild(questionBlock);
+            });
+        }
+
+        // Event listener para os links dos simulados
+        simuladosList.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A' && e.target.dataset.simulado) {
+                e.preventDefault();
+                loadQuiz(e.target.dataset.simulado);
+            }
+        });
+
+        // Event listener para o botão de finalizar simulado
+        submitQuizBtn.addEventListener('click', () => {
+            let correctCount = 0;
+            const totalQuestions = currentQuiz.questions.length;
+
+            currentQuiz.questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
+                if (selectedOption && selectedOption.value === q.correct) {
+                    correctCount++;
+                }
+            });
+
+            const percentage = (correctCount / totalQuestions) * 100;
+
+            // Exibe o popup
+            popupOverlay.style.display = 'block';
+            popup.style.display = 'block';
+
+            if (percentage >= 70) {
+                popupMessage.textContent = 'Parabéns, você teve um bom desempenho!';
+            } else {
+                popupMessage.textContent = 'Precisa estudar mais um pouco!';
+            }
+
+            popupPercentage.textContent = `Você acertou ${correctCount} de ${totalQuestions} perguntas. Percentual de Acertos: ${percentage.toFixed(2)}%`;
+        });
+
+        // Event listener para o botão de OK no popup
+        popupOkButton.addEventListener('click', () => {
+            simuladosList.style.display = 'block';
+            simuladoContainer.style.display = 'none';
+            submitQuizBtn.style.display = 'none';
+            quizForm.innerHTML = '';
+            popupOverlay.style.display = 'none';
+            popup.style.display = 'none';
+            currentQuiz = null;
+        });
+    </script>
+</body>
+</html>
