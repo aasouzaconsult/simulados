@@ -184,6 +184,7 @@
             <li><a href="#" data-simulado="data-modeling">Simulado de Modelagem de Dados</a></li>
             <li><a href="#" data-simulado="python">Simulado de Python</a></li>
             <li><a href="#" data-simulado="generative-ai">Simulado de IA Generativa</a></li>
+            <li><a href="#" data-simulado="powerbi-dax">Simulado de Power BI e DAX</a></li>
         </ul>
     </main>
 
@@ -499,9 +500,9 @@
                 title: "Simulado de Python",
                 questions: [
                     {
-                        question: "Qual palavra-chave é usada para definir uma função em Python?",
-                        options: ["func", "define", "def", "function"],
-                        correct: "def"
+                        question: "O que o seguinte código imprime? <br> <i>x = 5</i><br> <i>y = 10</i><br> <i>print(x + y)</i>",
+                        options: ["15", "510", "Erro", "Nenhuma das alternativas"],
+                        correct: "15"
                     },
                     {
                         question: "Como você escreve um comentário de linha única em Python?",
@@ -512,6 +513,165 @@
                         question: "Qual tipo de dado é usado para armazenar uma sequência de caracteres em Python?",
                         options: ["int", "float", "boolean", "str"],
                         correct: "str"
+                    },
+                    {
+                        question: "Qual é o tipo de dado retornado pela função <i>input()</i> em Python?",
+                        options: ["int", "float", "boolean", "str"],
+                        correct: "str"
+                    },
+                    {
+                        question: "Qual das opções abaixo representa corretamente a criação de uma função em Python?",
+                        options: ["function minha_funcao():", "def minha_funcao():", "create function minha_funcao():", "function: minha_funcao()"],
+                        correct: "def minha_funcao():"
+                    },
+                    {
+                        question: "O que o seguinte código imprime?<br> <i>for i in range(3):</i> <br>&nbsp;&nbsp;<i>print(i)</i>",
+                        options: [" 1 2 3", "0 1 2", "0 1 2 3", "(D) Nenhuma das alternativas"],
+                        correct: "0 1 2:"
+                    },
+                    {
+                        question: "Qual dessas estruturas é usada para armazenar múltiplos valores em uma única variável?",
+                        options: ["int", "list", "float", "boolean"],
+                        correct: "list"
+                    },
+                    {
+                        question: "Como podemos importar o módulo <b>math</b> em Python?",
+                        options: ["import math", "use math", "include math", "require math"],
+                        correct: "import math"
+                    },
+                    {
+                        question: "Qual comando é usado para exibir uma mensagem na tela?",
+                        options: ["show()", "display()", "print()", "echo()"],
+                        correct: "print()"
+                    },
+                    {
+                        question: "Qual é o resultado da expressão: <i>len(\"Python\")</i>?",
+                        options: ["5", "6", "7", "Erro"],
+                        correct: "6"
+                    },
+                    {
+                        question: "Qual será o valor da variável <i>resultado</i> após a execução do código: <br><i>resultado = 10 % 3</i>?",
+                        options: ["1", "3", "0", "10"],
+                        correct: "1"
+                    },
+                    {
+                        question: "Qual estrutura condicional em Python é usada para múltiplas verificações alternativas?",
+                        options: ["switch", "else if", "elif", "elseif"],
+                        correct: "elif"
+                    },
+                    {
+                        question: "O que o seguinte código imprime?<br><i>print(type(3.14))</i>",
+                        options: ["<class 'float'>", "<class 'int'>", "<class 'str'>", "<class 'double'>"],
+                        correct: "<class 'float'>"
+                    },
+                    {
+                        question: "Qual a saída do código:<br><i>nome = 'Ana'<br>print(nome[0])</i>",
+                        options: ["A", "n", "a", "Erro"],
+                        correct: "A"
+                    },
+                    {
+                        question: "Qual das opções representa corretamente uma lista em Python?",
+                        options: ["(1, 2, 3)", "{1, 2, 3}", "[1, 2, 3]", "<1, 2, 3>"],
+                        correct: "[1, 2, 3]"
+                    },
+                    {
+                        question: "O que é um dicionário em Python?",
+                        options: [
+                            "Uma coleção ordenada de elementos numéricos",
+                            "Uma coleção de pares chave-valor",
+                            "Uma lista de elementos imutáveis",
+                            "Uma função para criar textos formatados"
+                        ],
+                        correct: "Uma coleção de pares chave-valor"
+                    },
+                    {
+                        question: "O que é uma tupla (tuple) em Python?",
+                        options: [
+                            "Uma lista que pode ser modificada",
+                            "Um tipo de dicionário com chaves fixas",
+                            "Uma coleção ordenada e imutável de elementos",
+                            "Uma função que converte listas em strings"
+                        ],
+                        correct: "Uma coleção ordenada e imutável de elementos"
+                    },{
+                        question: "Qual das opções representa corretamente uma tupla em Python?",
+                        options: [
+                            "[1, 2, 3]",
+                            "{1, 2, 3}",
+                            "(1, 2, 3)",
+                            "<1, 2, 3>"
+                        ],
+                        correct: "(1, 2, 3)"
+                    },
+                    {
+                        question: "Qual das opções representa corretamente um dicionário em Python?",
+                        options: [
+                            "{'nome': 'Ana', 'idade': 30}",
+                            "['nome', 'idade']",
+                            "('nome', 'idade')",
+                            "<'nome', 'idade'>"
+                        ],
+                        correct: "{'nome': 'Ana', 'idade': 30}"
+                    },
+                    {
+                        question: "Qual das opções abaixo é usada para importar a biblioteca Pandas em Python?",
+                        options: [
+                            "import pandas as pd",
+                            "include pandas",
+                            "use pandas",
+                            "import dataframe from pandas"
+                        ],
+                        correct: "import pandas as pd"
+                    },
+                    {
+                        question: "Qual comando cria um DataFrame a partir de um dicionário usando Pandas?",
+                        options: [
+                            "pd.create_dataframe({'nome': ['Ana', 'João']})",
+                            "pd.DataFrame({'nome': ['Ana', 'João']})",
+                            "pd.new_dataframe({'nome': ['Ana', 'João']})",
+                            "pd.make_df({'nome': ['Ana', 'João']})"
+                        ],
+                        correct: "pd.DataFrame({'nome': ['Ana', 'João']})"
+                    },
+                    {
+                        question: "Qual função da biblioteca NumPy é usada para criar um array com valores de 0 a 9?",
+                        options: [
+                            "np.range(10)",
+                            "np.list(10)",
+                            "np.arange(10)",
+                            "np.create_array(10)"
+                        ],
+                        correct: "np.arange(10)"
+                    },
+                    {
+                        question: "Qual comando abaixo plota um gráfico de linha simples com Matplotlib?",
+                        options: [
+                            "plt.line([1,2,3])",
+                            "plot.line([1,2,3])",
+                            "plt.plot([1, 2, 3])",
+                            "draw.line([1,2,3])"
+                        ],
+                        correct: "plt.plot([1, 2, 3])"
+                    },
+                    {
+                        question: "Qual biblioteca permite criar gráficos interativos em Python?",
+                        options: [
+                            "Matplotlib",
+                            "Seaborn",
+                            "Plotly",
+                            "Scipy"
+                        ],
+                        correct: "Plotly"
+                    },
+                    {
+                        question: "Com qual função do Scikit-learn treinamos um modelo de regressão linear?",
+                        options: [
+                            "LinearRegression().fit(X, y)",
+                            "LinearRegression().train(X, y)",
+                            "LinearModel().fit(X, y)",
+                            "fit.LinearRegression(X, y)"
+                        ],
+                        correct: "LinearRegression().fit(X, y)"
                     }
                 ]
             },
@@ -532,6 +692,340 @@
                         question: "Qual é o termo para o processo em que um modelo de IA Generativa aprende a partir de uma vasta quantidade de dados para gerar novas saídas?",
                         options: ["Regressão", "Classificação", "Treinamento", "Normalização"],
                         correct: "Treinamento"
+                    },
+                    {
+                        question: "O que significa a sigla <b>LLM</b> no contexto de IA Generativa?",
+                        options: ["Large Language Model", "Low Latency Machine", "Logical Learning Mechanism", "Linear Language Method"],
+                        correct: "Large Language Model"
+                    },
+                    {
+                        question: "Qual é a principal arquitetura utilizada em modelos como GPT, BERT e T5?",
+                        options: ["RNN (Redes Neurais Recorrentes)", "CNN (Redes Convolucionais)", "Transformer", "SVM (Support Vector Machine)"],
+                        correct: "Transformer"
+                    },
+                    {
+                        question: "Em um modelo Transformer, o que o mecanismo de <b>attention(atenção)</b> faz?",
+                        options: ["Ordena os tokens em ordem alfabética", "Calcula o peso de cada palavra em relação às outras no contexto da frase", "Ignora tokens irrelevantes", "Remove palavras repetidas"],
+                        correct: "Calcula o peso de cada palavra em relação às outras no contexto da frase"
+                    },
+                    {
+                        question: "O que são <b>tokens</b> em um modelo de linguagem?",
+                        options: ["Dados de autenticação", "Símbolos ou pedaços de texto (palavras, subpalavras ou caracteres) usados na entrada e saída do modelo", "Funções internas do modelo", "Operadores matemáticos"],
+                        correct: "Símbolos ou pedaços de texto (palavras, subpalavras ou caracteres) usados na entrada e saída do modelo"
+                    },
+                    {
+                        question: "Na prática de <i>prompt engineering</i>, qual é uma boa prática para obter melhores respostas de um LLM?",
+                        options: ["Fazer perguntas vagas", 
+                                  "Não dar contexto nenhum", 
+                                  "Especificar claramente o formato esperado da resposta e fornecer contexto", 
+                                  "Usar sempre a mesma pergunta, independentemente da situação"],
+                        correct: "Especificar claramente o formato esperado da resposta e fornecer contexto"
+                    },
+                    {
+                        question: "O que acontece quando o número de tokens de um prompt ultrapassa o limite do modelo?",
+                        options: ["O modelo continua normalmente", 
+                                  "O modelo ignora o excesso de tokens", 
+                                  "O modelo aumenta automaticamente o limite de tokens", 
+                                  "O prompt pode ser truncado ou resultar em erro"],
+                        correct: "O prompt pode ser truncado ou resultar em erro"
+                    },
+                    {
+                        question: "Qual desses NÃO é um exemplo de aplicação de LLM?",
+                        options: ["Geração de texto automático", 
+                                  "Tradução automática", 
+                                  "Classificação e reconhecimento facial em imagens médicas", 
+                                  "Resumo de documentos"],
+                        correct: "Classificação e reconhecimento facial em imagens médicas"
+                    },
+                    {
+                        question: "Em relação ao parâmetro <i>temperature</i>nos LLMs, o que ele controla?",
+                        options: ["A velocidade de resposta do modelo", 
+                                  "O grau de aleatoriedade na geração de respostas", 
+                                  "O número de tokens utilizados", 
+                                  "O tamanho do modelo"],
+                        correct: "O grau de aleatoriedade na geração de respostas"
+                    },
+                    {
+                        question: "O que é <i>fine-tuning</i> em LLMs?",
+                        options: ["O ajuste da temperatura de geração de texto", 
+                                  "A conversão de tokens em <i>embeddings</i>", 
+                                  "O processo de treinamento adicional de um modelo pré-treinado em um conjunto de dados específico", 
+                                  "A escolha do prompt correto para uma tarefa"],
+                        correct: "O processo de treinamento adicional de um modelo pré-treinado em um conjunto de dados específico"
+                    },
+                    {
+                        question: "O que significa <i>zero-shot learning</i> em LLMs?",
+                        options: ["Aprender sem usar GPU", 
+                                  "O modelo resolver tarefas sem ter sido treinado diretamente nelas, apenas com base no prompt", 
+                                  "Aprender apenas com imagens", 
+                                  "Aprender usando apenas uma amostra"],
+                        correct: "O modelo resolver tarefas sem ter sido treinado diretamente nelas, apenas com base no prompt"
+                    },
+                    {
+                        question: "O que caracteriza a técnica de <i>few-shot learning</i> em LLMs?",
+                        options: [
+                            "O modelo aprende com grandes volumes de dados rotulados",
+                            "O modelo precisa ser ajustado (fine-tuning) com novos parâmetros",
+                            "O modelo resolve tarefas após receber alguns exemplos no próprio prompt",
+                            "O modelo é treinado a partir do zero com poucos dados"
+                        ],
+                        correct: "O modelo resolve tarefas após receber alguns exemplos no próprio prompt"
+                    },
+                    {
+                        question: "Para que serve a técnica de <i>Chain of Thought</i> em prompts com LLMs?",
+                        options: [
+                            "Para forçar o modelo a retornar apenas respostas booleanas",
+                            "Para encadear perguntas sequenciais e salvar o histórico",
+                            "Para induzir o modelo a mostrar seu raciocínio passo a passo antes da resposta final",
+                            "Para limitar a saída do modelo a uma única sentença"
+                        ],
+                        correct: "Para induzir o modelo a mostrar seu raciocínio passo a passo antes da resposta final"
+                    },
+                    {
+                        question: "O que significa multimodalidade em modelos de IA generativa?",
+                        options: [
+                            "Capacidade do modelo de lidar com múltiplas tarefas simultaneamente",
+                            "Capacidade do modelo de lidar com múltiplos idiomas",
+                            "Capacidade do modelo de processar diferentes tipos de entrada como texto, imagem, áudio, documentos etc.",
+                            "Capacidade do modelo de treinar com poucos exemplos"
+                        ],
+                        correct: "Capacidade do modelo de processar diferentes tipos de entrada como texto, imagem, áudio, documentos etc."
+                    },
+                    {
+                        question: "Como um modelo multimodal pode interagir com arquivos PDF?",
+                        options: [
+                            "Extraindo somente metadados do PDF",
+                            "Interpretando imagens apenas em PDF",
+                            "Lendo e entendendo o conteúdo textual para responder perguntas ou resumir",
+                            "Convertendo PDF para CSV automaticamente"
+                        ],
+                        correct: "Lendo e entendendo o conteúdo textual para responder perguntas ou resumir"
+                    },
+                    {
+                        question: "Em um contexto de IA generativa multimodal, qual uso é comum para arquivos CSV?",
+                        options: [
+                            "Treinar modelos de linguagem com sintaxe HTML",
+                            "Gerar automaticamente templates visuais",
+                            "Responder perguntas baseadas em dados estruturados contidos no arquivo",
+                            "Converter CSV para PDF automaticamente"
+                        ],
+                        correct: "Responder perguntas baseadas em dados estruturados contidos no arquivo"
+                    },
+                    {
+                        question: "Ao carregar uma imagem para um modelo multimodal como GPT-4o ou Gemini, o que o modelo é capaz de fazer?",
+                        options: [
+                            "Apenas reconhecer rostos",
+                            "Traduzir textos contidos na imagem e descrever seu conteúdo",
+                            "Editar o conteúdo da imagem",
+                            "Converter a imagem em planilha Excel"
+                        ],
+                        correct: "Traduzir textos contidos na imagem e descrever seu conteúdo"
+                    },
+                    {
+                        question: "Qual dessas aplicações se beneficia da capacidade multimodal de ler apresentações em PowerPoint?",
+                        options: [
+                            "Converter slides em código HTML",
+                            "Extrair conteúdo para gerar resumos, explicações ou quizzes automáticos",
+                            "Criar gráficos em JavaScript",
+                            "Traduzir arquivos CSV para Markdown"
+                        ],
+                        correct: "Extrair conteúdo para gerar resumos, explicações ou quizzes automáticos"
+                    },
+                    {
+                        question: "Qual das opções abaixo é um modelo LLM desenvolvido pela OpenAI?",
+                        options: [
+                            "Claude",
+                            "Gemini",
+                            "GPT-4",
+                            "Mistral"
+                        ],
+                        correct: "GPT-4"
+                    },
+                    {
+                        question: "Qual é o principal modelo de linguagem desenvolvido pelo Google?",
+                        options: [
+                            "Gemini",
+                            "Claude",
+                            "GPT",
+                            "LLaMA"
+                        ],
+                        correct: "Gemini"
+                    },
+                    {
+                        question: "Claude, modelo de linguagem natural com capacidades multimodais e de raciocínio, é desenvolvido por qual empresa?",
+                        options: [
+                            "OpenAI",
+                            "Google DeepMind",
+                            "Anthropic",
+                            "Meta AI"
+                        ],
+                        correct: "Anthropic"
+                    },
+                    {
+                        question: "Qual destas ferramentas permite criar agentes de IA personalizados baseados em LLMs de forma visual e sem código?",
+                        options: [
+                            "LangChain",
+                            "ChatGPT (GPTs customizados)",
+                            "Hugging Face Transformers",
+                            "PyTorch"
+                        ],
+                        correct: "ChatGPT (GPTs customizados)"
+                    },
+                    {
+                        question: "Qual modelo open-source da Meta é considerado um dos principais concorrentes dos modelos proprietários de LLMs?",
+                        options: [
+                            "Claude 3",
+                            "LLaMA",
+                            "Gemini Pro",
+                            "GPT-3.5"
+                        ],
+                        correct: "LLaMA"
+                    }
+                ]
+            },
+            'powerbi-dax': {
+                title: "Simulado de Power BI e DAX",
+                questions: [
+                    {
+                        question: "Com as fórmulas DAX no Power BI é permitido:",
+                        options: ["Adicionar colunas calculadas, medidas e criar fórmulas inteligentes.", "Adicionar colunas apenas.", "Adicionar medidas apenas.", "Criar gráficos interativos."],
+                        correct: "Adicionar colunas calculadas, medidas e criar fórmulas inteligentes.)"
+                    },
+                    {
+                        question: "A fórmula com a função <b>AVERAGE</b) retorna…",
+                        options: ["A média dos valores de uma coluna.", 
+                                  "A soma dos valores de uma coluna.", 
+                                  "O menor valor de uma coluna.", 
+                                  "A divisão entre dois valores."],
+                        correct: "A média dos valores de uma coluna."
+                    },
+                    {
+                        question: "Qual o objetivo da fórmula com a função CALCULATE no Power BI?",
+                        options: ["Contar a quantidade de células em uma coluna que contém números.", 
+                                  "Calcular uma expressão ou uma fórmula excluindo qualquer tipo de filtro.", 
+                                  "Contar a quantidade de linhas em uma tabela.", 
+                                  "Calcular uma expressão ou uma fórmula a partir dos filtros indicados."],
+                        correct: "Calcular uma expressão ou uma fórmula a partir dos filtros indicados."
+                    },
+                    {
+                        question: "Qual o objetivo da fórmula com a função DISTINCTCOUNT no Power BI?",
+                        options: ["Soma a quantidade de células preenchidas em uma coluna.", 
+                                  "Conta a quantidade de linhas em uma tabela.", 
+                                  "Contar a quantidade de valores únicos em uma coluna (sem as duplicatas)",
+                                  "Conta a quantidade de células preenchidas em uma coluna."],
+                        correct: "Contar a quantidade de valores únicos em uma coluna (sem as duplicatas)"
+                    },
+                    {
+                        question: "Qual o principal objetivo da fórmula com a função ALL?",
+                        options: ["Cancelar filtros.", 
+                                  "Excluir células vazias.", 
+                                  "Cancelar valores duplicados.", 
+                                  "Excluir linhas vazias."],
+                        correct: "Cancelar filtros."
+                    },
+                    {
+                        question: "Qual o objetivo das <b>fórmulas x</b> (SUMX, COUNTX, AVERAGEX, MAXX, MINX)?",
+                        options: ["Fazer algum cálculo linha por linha da tabela e depois aplicar alguma agregação (soma, máximo, média, etc).", 
+                                  "Fazer algum cálculo coluna por coluna da tabela e depois aplicar alguma agregação (soma, máximo, média, etc).", 
+                                  "Criar comparações e análises inteligentes.", 
+                                  "Excluir outliers em agregações."],
+                        correct: "Fazer algum cálculo linha por linha da tabela e depois aplicar alguma agregação (soma, máximo, média, etc)."
+                    },
+                    {
+                        question: "Qual a finalidade das fórmulas de inteligência de tempo no Power BI?",
+                        options: ["Poder criar gráficos inteligentes em períodos de tempo (ano, mês, etc.)", 
+                                  "Poder criar a tabela calendário de forma inteligente.", 
+                                  "Poder criar a tabela calendário de forma automatizada.", 
+                                  "Criar comparações e análises inteligentes, como acumulado do ano, comparação com o mesmo período do ano anterior, etc."],
+                        correct: "Criar comparações e análises inteligentes, como acumulado do ano, comparação com o mesmo período do ano anterior, etc."
+                    },
+                    {
+                        question: "O que significa DAX?",
+                        options: [
+                            "Data Analysis Expert",
+                            "Data Analysis Expressions",
+                            "Data Analysis Express",
+                            "Data Avaiable Expressions"
+                        ],
+                        correct: "Data Analysis Expressions"
+                    },
+                    {
+                        question: "DAX trabalha com 2 tipos de contexto, quais são?",
+                        options: [
+                            "Contexto de filtro e Contexto de Coluna",
+                            "Contexto de fila e Contexto de Linha",
+                            "Contexto de fila e Contexto de filtro",
+                            "Contexto de filtro e Contexto de Linha"
+                        ],
+                        correct: "Contexto de filtro e Contexto de Linha"
+                    },
+                    {
+                        question: "O Power BI oferece serviços em nuvem conhecidos como:",
+                        options: [
+                            "Power BI Services",
+                            "BI Services",
+                            "Power BI Desktop",
+                            "Power BI Cloud BI"
+                        ],
+                        correct: "Power BI Services"
+                    },
+                    {
+                        question: "Qual a principal vantagem do DIVIDE() no DAX do Power BI em relação a uma divisão no Excel?",
+                        options: [
+                            "O DIVIDE() não irá automaticamente tratar divisões por 0.",
+                            "O DIVIDE() irá automaticamente tratar divisões por 0, sem erros.",
+                            "O DIVIDE() é permite trabalhar com números de escala maior do que o Excel",
+                            "Nenhuma, ambas irão realizar a mesma ação."
+                        ],
+                        correct: "O DIVIDE() irá automaticamente tratar divisões por 0, sem erros."
+                    },
+                    {
+                        question: "O PowerBI é uma ferramenta moderna utilizada para gerar <i>dashboards</i> e visualização de dados oriundos de fontes separadas e que facilita a integração de conteúdos armazenados em arquivos de formatos diferentes.",
+                        options: [
+                            "Certo",
+                            "Errado",
+                        ],
+                        correct: "Certo"
+                    },
+                    {
+                        "question": "Qual tipo de gráfico é mais adequado para mostrar a proporção entre categorias?",
+                        "options": ["Gráfico de colunas", "Gráfico de barras", "Gráfico de pizza", "Gráfico de dispersão"],
+                        "correct": "Gráfico de pizza"
+                    },
+                    {
+                        "question": "Em uma visualização, o uso excessivo de cores pode:",
+                        "options": ["Ajudar a focar no dado principal", "Deixar o gráfico mais claro", "Confundir o leitor", "Destacar automaticamente os maiores valores"],
+                        "correct": "Confundir o leitor"
+                    },
+                    {
+                        "question": "Qual boa prática deve ser considerada ao usar eixos em gráficos?",
+                        "options": ["Sempre usar escalas logarítmicas", "Nunca nomear os eixos", "Manter os eixos com títulos claros e legíveis", "Ocultar os eixos para dar mais espaço"],
+                        "correct": "Manter os eixos com títulos claros e legíveis"
+                    },
+                    {
+                        "question": "Gráficos de linha são mais indicados para:",
+                        "options": ["Mostrar distribuição de categorias", "Comparar proporções", "Analisar tendências ao longo do tempo", "Mostrar composição percentual"],
+                        "correct": "Analisar tendências ao longo do tempo"
+                    },
+                    {
+                        "question": "Qual dessas práticas é recomendada para facilitar a leitura de um dashboard?",
+                        "options": ["Usar títulos ambíguos", "Exibir o máximo de informações possível em um gráfico", "Utilizar espaçamento adequado e hierarquia visual", "Centralizar todos os gráficos"],
+                        "correct": "Utilizar espaçamento adequado e hierarquia visual"
+                    },
+                    {
+                        "question": "Uma boa prática ao usar gráficos de barras é:",
+                        "options": ["Colocar as barras em ordem aleatória", "Ordenar as barras por valor ou categoria", "Evitar a exibição de valores", "Usar cores aleatórias para cada barra"],
+                        "correct": "Ordenar as barras por valor ou categoria"
+                    },
+                    {
+                        "question": "Por que é importante evitar exagero no uso de visualizações 3D?",
+                        "options": ["Porque deixam os gráficos mais lentos", "Porque dificultam a interpretação precisa dos dados", "Porque ocupam muito espaço", "Porque não são compatíveis com Power BI"],
+                        "correct": "Porque dificultam a interpretação precisa dos dados"
+                    },
+                    {
+                        "question": "O uso de segmentações (slicers) em um dashboard tem como principal objetivo:",
+                        "options": ["Aumentar a quantidade de dados na tela", "Melhorar a performance do relatório", "Permitir que o usuário filtre os dados interativamente", "Destacar gráficos automaticamente"],
+                        "correct": "Permitir que o usuário filtre os dados interativamente"
                     }
                 ]
             },
