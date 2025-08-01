@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="simulado.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Simulados - Tudo em Um!</title>
     <style>
@@ -241,6 +242,143 @@
                                   "ALTER TABLE Pessoas ALTER COLUMN Email VARCHAR(70)", 
                                   "ALTER TABLE Pessoas ADD Email VARCHAR(70)"],
                         correct: "ALTER TABLE Pessoas ALTER COLUMN Email VARCHAR(70)"
+                    },
+                    {
+                        question: "Que comando SQL é usado para deletar dados em um banco de dados?",
+                        options: ["DELETE", 
+                                  "REMOVE", 
+                                  "DROP", 
+                                  "COLLAPSE"],
+                        correct: "DELETE"
+                    },
+                    {
+                        question: "Que comando SQL é usado para inserir novos dados em um banco de dados?",
+                        options: ["INSERT INTO", 
+                                  "ADD RECORD", 
+                                  "INSERT NEW", 
+                                  "ADD NEW"],
+                        correct: "INSERT INTO"
+                    },
+                    {
+                        question: "A diferença existente entre o Modelo Entidade-Relacionamento (MER) do Diagrama Entidade-Relacionamento é que enquanto",
+                        options: ["o MER é um conjunto de ferramentas aplicadas no projeto do banco de dados, o DER é o diagrama do conjunto de ferramentas", 
+                                  "o MER é um conjunto de conceitos aplicados na modelagem dos dados, o DER é a representação gráfica do modelo", 
+                                  "o MER representa graficamente os dados modelados, o DER representa o conjunto de conceitos necessários para a modelagem", 
+                                  "o MER representa graficamente os conceitos aplicados no projeto do banco de dados, o DER é um modelo conceitual"],
+                        correct: "o MER é um conjunto de conceitos aplicados na modelagem dos dados, o DER é a representação gráfica do modelo"
+                    },
+                    {
+                        question: "Considere o seguinte comando SQL: <b>GRANT SELECT ON TABLE Vendas TO Comercial</b>, esta instrução: ",
+                        options: ["Atribui o direito de inserção, modificação e exclusão, mas não de leitura dos registros da tabela Vendas aos integrantes do perfil Comercial", 
+                                  "Revoga o direito de criação da tabela Vendas, a integrantes do perfil Comercial", 
+                                  "Atribui o direito de criação da tabela Vendas, aos integrantes do perfil Comercial", 
+                                  "Atribui o direito de leitura da tabela Vendas aos integrantes do perfil Comercial"],
+                        correct: "Atribui o direito de leitura da tabela Vendas aos integrantes do perfil Comercial"
+                    },
+                    {
+                        question: "O modelo relacional formal define os seguintes conceitos acerca de bancos de dados: <br> 1 - Tupla: é uma lista ordenada de valores, que contém um valor específico ou NULL.<br> 2 - Relação: é um conjunto de tuplas.<br> 3 - Atributo: é o nome de um papel desempenhado por um conjunto de valores atômicos.<br> Respectivamente, estes conceitos são apresentados e utilizados na linguagem SQL como...",
+                        options: ["Linha, Tabela, Coluna", 
+                                  "Linha, Coluna, Tabela", 
+                                  "Tabela, Linha, Coluna", 
+                                  "Coluna, Tabela, Linha"],
+                        correct: "Linha, Tabela, Coluna"
+                    },
+                    {
+                        question: "Quanto aos diversos comandos da linguagem SQL (<i>Structured Query Language</i>), analise as afirmativas abaixo, dê valores Verdadeiro (V) ou Falso (F) e assinale a alternativa que apresenta a sequência correta de cima para baixo.<br> ( ) Duas palavras-chaves da DCL (Data Control Language) são: UPDATE e DELETE.<br> ( ) Um dos comandos do DML (Data Manipulation Language) é o INSERT.<br> ( ) Os comandos básicos da DDL (Data Definition Language) são: CREATE e DROP.",
+                        options: ["F - F - V", 
+                                  "F - V - V", 
+                                  "V - F - F", 
+                                  "V - V - F"],
+                        correct: "F - V - V"
+                    },
+                    {
+                        question: "A estrutura exibida a seguir representa a tabela Produto: (ID, Descricao, Peso)<br> A consulta SQL para obter a Descrição e o Peso dos produtos tendo como restrição a variação de Peso entre 2 e 18 quilos é:",
+                        options: ["SELECT Descricao AND Peso OF Produto HAVING Peso IN (2; 18)", 
+                                  "SELECT Produto (Descricao, Peso) FOR Peso INSIDE (2;18)", 
+                                  "SELECT Descricao, Peso FROM Produto WHERE Peso IS BETWEEN 2 TO 18", 
+                                  "SELECT Descricao, Peso FROM Produto WHERE Peso BETWEEN 2 AND 18"],
+                        correct: "SELECT Descricao, Peso FROM Produto WHERE Peso BETWEEN 2 AND 18"
+                    },
+                    {
+                        question: "Qual o comando SQL correspondente à consulta: Listar o nome e o salário dos clientes do sexo masculino que ganham menos de R$ 3000?",
+                        options: ["SELECT nome, salario FROM CLIENTE WHERE sexo='masculino' AND salario < 3000", 
+                                  "SELECT nome FROM CLIENTE WHERE sexo='M' OR salario < 3000",
+                                  "SELECT nome, salario FROM CLIENTE WHERE sexo='M' AND salario = < 3000", 
+                                  "SELECT salario FROM CLIENTE WHERE sexo='M' AND salario < 3000"],
+                        correct: "SELECT nome, salario FROM CLIENTE WHERE sexo='masculino' AND salario < 3000"
+                    },
+                    {
+                        question: "Um analista de sistemas, após ter implementado seu projeto de banco de dados, realizou um teste para verificar se em cada atributo das tabelas do banco de dados são aceitos apenas os valores previamente definidos como válidos. Esse procedimento refere-se ao teste de...",
+                        options: ["Cardinalidade dos relacionamentos", 
+                                  "Grau de normalização das tabelas", 
+                                  "Domínio dos atributos",
+                                  "Unicidade das chaves primárias"],
+                        correct: "Domínio dos atributos"
+                    },
+                    {
+                        question: "Dos Scripts abaixo, qual retorna o número de registros da tabela <b>Pessoas</b>?",
+                        options: ["SELECT COUNT(*) FROM Pessoas", 
+                                  "SELECT COUNT(Rows) FROM Pessoas", 
+                                  "SELECT COLUMNS(*) FROM Pessoas",
+                                  "SELECT COLUMNS() FROM Pessoas"],
+                        correct: "SELECT COUNT(*) FROM Pessoas"
+                    },
+                    {
+                        question: "Com SQL, como você seleciona uma coluna chamada <i><b>Nome</b></i> de uma tabela chamada <b>Pessoas</b>?",
+                        options: ["SELECT Nome FROM Pessoas", 
+                                  "SELECT Pessoas FROM Nome", 
+                                  "SELECT Pessoas.Nome",
+                                  "SELECT Nome FROM Pessoa"],
+                        correct: "SELECT Nome FROM Pessoas"
+                    },
+                    {
+                        question: "Analise o trecho de texto a seguir:<br> Em algumas relações podem ser encontrados vários atributos que possam servir como uma chave candidata. Entretanto, a escolha de chave primária tem como objetivo estabelecer uma forma segura de identificação... <br> Por suas características, os seguintes atributos podem ser utilizados como chave primária?",
+                        options: ["CPF, MATRÍCULA e CÓDIGO_PEÇA", 
+                                  "NOME, SALÁRIO e CARGO_FUNÇÃO", 
+                                  "NOME, MATRÍCULA e CÓDIGO_ PEÇA",
+                                  "CPF, SALÁRIO e CARGO_FUNÇÃO"],
+                        correct: "CPF, MATRÍCULA e CÓDIGO_PEÇA"
+                    },
+                    {
+                        question: "No modelo entidade relacionamento (MER), uma entidade é um objeto do mundo real, sobre as quais queremos guardar informações. As características das entidades são definidas a partir do seu conjunto de atributos, estes por sua vez, podem ser classificados em simples e compostos, monovalorados, multivalorados e derivados. O atributo derivado pode ser armazenado ou não armazenado e, em ambos os casos, apresentam vantagens e desvantagens. Assinale a alternativa que apresenta uma desvantagem do atributo derivado armazenado.",
+                        options: ["Adiciona complexidade na codificação das consultas", 
+                                  "Aumenta o tempo de acesso aos dadoss", 
+                                  "Exige manutenção constante para garantir que o valor seja atual, especialmente se qualquer valor utilizado na computação se alterar",
+                                  "Utiliza ciclos de processamento da CPU",
+                                  "Nenhuma das anteriores"],
+                        correct: "Adiciona complexidade na codificação das consultas"
+                    },
+                    {
+                        question: "Que comando SQL é usado para extrair dados de um banco de dados?",
+                        options: ["SELECT", 
+                                  "EXTRACT", 
+                                  "OPEN",
+                                  "GET"],
+                        correct: "SELECT"
+                    },
+                    {
+                        question: "Quem é considerado o Pai do Banco de Dados?",
+                        options: ["Bill Inmon", 
+                                  "Edgar Frank Codd", 
+                                  "Ralph Kimball",
+                                  "William Playfair"],
+                        correct: "Edgar Frank Codd"
+                    },
+                    {
+                        question: "Em qual década surgiram os bancos de dados?",
+                        options: ["80", 
+                                  "90", 
+                                  "70",
+                                  "60"],
+                        correct: "70"
+                    },
+                    {
+                        question: "O que, bem resumidamente, seria uma CTE e uma Windows Function respectivamente?",
+                        options: ["Pode ser vista como um result set temporário | É uma função que usa valores de uma ou várias linhas para retornar um valor para cada linha", 
+                                  "Pode ser vista como um Consulta Tabular Estendida | É uma função que usa valores de uma ou várias linhas para retornar um valor para cada linha", 
+                                  "É uma função que usa valores de uma ou várias linhas para retornar um valor para cada linha | Pode ser vista como um result set temporário",
+                                  "É uma função que usa valores de uma ou várias linhas para retornar um valor para cada linha | Pode ser vista como um Consulta Tabular Estendida"],
+                        correct: "Pode ser vista como um result set temporário | É uma função que usa valores de uma ou várias linhas para retornar um valor para cada linha"
                     }
                 ]
             },
