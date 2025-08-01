@@ -383,22 +383,115 @@
                 ]
             },
             'data-modeling': {
-                title: "Simulado de Modelagem de Dados",
+                title: "Simulado de Modelagem Dimensional",
                 questions: [
                     {
-                        question: "Qual é o principal objetivo da modelagem de dados?",
-                        options: ["Criar interfaces de usuário", "Organizar e estruturar dados", "Desenvolver algoritmos complexos", "Gerenciar redes de computadores"],
-                        correct: "Organizar e estruturar dados"
+                        question: "São modelos dimensionais…",
+                        options: ["Star Schema e Snow Flake", 
+                                  "Star Schema e Schema Flake", 
+                                  "Star Schema e Snow Fake", 
+                                  "Snow Schema e Star Flake"],
+                        correct: "Star Schema e Snow Flake"
                     },
                     {
-                        question: "O que representa uma 'entidade' em um modelo ER (Entidade-Relacionamento)?",
-                        options: ["Uma linha de código", "Um objeto ou conceito do mundo real", "Um tipo de dado", "Uma conexão de rede"],
-                        correct: "Um objeto ou conceito do mundo real"
+                        question: "Tipos de dados que podem conter em tabelas de Fato, são:",
+                        options: ["Numéricos, Valores, Datas, Códigos", 
+                                  "Numéricos, Textos, Datas, Códigos", 
+                                  "Numéricos, Inteiros, Valores, Datas, Códigos, Textos", 
+                                  "Todo tipo de dado"],
+                        correct: "Numéricos, Valores, Datas, Códigos"
                     },
                     {
-                        question: "O que significa 'cardinalidade' em um relacionamento de banco de dados?",
-                        options: ["O número de colunas em uma tabela", "O número de linhas em uma tabela", "O número de instâncias de uma entidade que podem estar associadas a instâncias de outra entidade", "A ordem dos dados"],
-                        correct: "O número de instâncias de uma entidade que podem estar associadas a instâncias de outra entidade"
+                        question: "O que é SCD?",
+                        options: ["SQL Changing Dimensions", 
+                                  "Slowly Changing Dimensions", 
+                                  "Slowly Changing Directions", 
+                                  "SQL Chat Data"],
+                        correct: "Slowly Changing Dimensions"
+                    },
+                    {
+                        question: "São tipos de SCD?",
+                        options: ["1,3,5,7,9,11 e 13", 
+                                  "1,2,3,4,5,6,7,8,9,10,11 e 12", 
+                                  "1,2,3,4 e 6", 
+                                  "1,2,3,9 e 10"],
+                        correct: "1,2,3,4 e 6"
+                    },
+                    {
+                        question: "Não é um tipo de tabela dimensão…",
+                        options: ["ROLE-PLAYING DIMENSION", 
+                                  "CONFORMED DIMENSION", 
+                                  "JUNK DIMENSION", 
+                                  "SQL DIMENSION"],
+                        correct: "SQL DIMENSION"
+                    },
+                    {
+                        question: "Não é um tipo de tabela Fato…",
+                        options: ["Sumaryable snapshots", 
+                                  "Transactional", 
+                                  "Aggregate", 
+                                  "Periodic snapshots",
+                                  "Accumulating snapshot",
+                                  "Factless Fact Tables"],
+                        correct: "Sumaryable snapshots"
+                    },
+                    {
+                        question: "Data Warehouse é como um banco de dados projetado e otimizado para…",
+                        options: ["Inserção", 
+                                  "Gravação", 
+                                  "KPI´s", 
+                                  "Consultas"],
+                        correct: "Consultas"
+                    },
+                    {
+                        question: "O que é ODS?",
+                        options: ["Operational Data SQL", 
+                                  "Operational Data Store",
+                                  "OLAP Data Store", 
+                                  "OLTP Data Store"],
+                        correct: "Operational Data Store"
+                    },
+                    {
+                        question: "De forma bem simplista, o ODS é…",
+                        options: ["É o banco de dados da operação do ERP", 
+                                  "É um banco de dados tridimensional",
+                                  "É o banco de dados utilizado para guardar logs do servidor (origem)", 
+                                  "É um banco de dados, que armazena cópia dos dados da fonte (origem)"],
+                        correct: "É um banco de dados, que armazena cópia dos dados da fonte (origem)"
+                    },
+                    {
+                        question: "O que é ETL?",
+                        options: ["Extract, Transform e Load",
+                                  "Extract, Transport e Load",
+                                  "Elastic, Transform e Load", 
+                                  "Extract, Transform e Link"],
+                        correct: "Extract, Transform e Load"
+                    },
+                    {
+                        question: "O que é OLTP?",
+                        options: ["Online Transaction Processing", 
+                                  "Online Transport Processing",
+                                  "Offline Transaction Processing", 
+                                  "Offline Transport Processing"],
+                        correct: "Online Transaction Processing"
+                    },
+                    {
+                        question: "O que é OLAP?",
+                        options: ["Offline analytical processing", 
+                                  "Online analytical processing",
+                                  "Online analytical progress", 
+                                  "Offline analytical progress"],
+                        correct: "Online analytical processing"
+                    },
+                    {
+                        question: "Sobrenome dos criadores dos modelos dimensionais?",
+                        options: ["Inmon e Kimball", 
+                                  "Kimball e Gates",
+                                  "Gates e Jobs", 
+                                  "Gates e Inmon",
+                                  "Codd e Inmon",
+                                  "Souza e Trump"],
+                        correct: "Inmon e Kimball"
                     }
                 ]
             },
