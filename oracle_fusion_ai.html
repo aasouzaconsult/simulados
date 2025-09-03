@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simulado • 1Z0-1145-1 – Oracle Fusion AI Agent Studio Foundations</title>
+  <style>
+    :root{
+      --bg:#0f172a; /* slate-900 */
+      --card:#111827; /* gray-900 */
+      --muted:#94a3b8; /* slate-400 */
+      --text:#e5e7eb; /* gray-200 */
+      --brand:#22d3ee; /* cyan-400 */
+      --ok:#22c55e;   /* green-500 */
+      --bad:#ef4444;  /* red-500 */
+      --warn:#f59e0b; /* amber-500 */
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#0b1226,#0f172a 30%);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);}
+    header{position:sticky;top:0;z-index:20;background:rgba(15,23,42,.9);backdrop-filter:blur(8px);border-bottom:1px solid #1f2937}
+    .wrap{max-width:1100px;margin:0 auto;padding:16px}
+    h1{font-size:clamp(18px,2.6vw,28px);margin:0 0 8px;display:flex;gap:8px;align-items:center}
+    .pill{display:inline-flex;align-items:center;gap:6px;background:#111827;border:1px solid #1f2937;padding:4px 10px;border-radius:999px;color:var(--muted);font-size:12px}
+    .grid{display:grid;gap:16px;margin:18px auto;max-width:1100px;padding:0 16px}
+    .card{background:linear-gradient(180deg,#0b1222 0,#0b1222 60%,#0b1328 100%);border:1px solid #1f2937;border-radius:18px;padding:18px;box-shadow:0 10px 25px rgba(0,0,0,.25)}
+    .qhead{display:flex;gap:10px;align-items:flex-start}
+    .qid{background:#111827;border:1px solid #1f2937;color:#a5b4fc;padding:2px 8px;border-radius:10px;font-size:12px}
+    .qtitle{margin:0;font-size:18px;line-height:1.35}
+    .subtitle{margin:6px 0 0;color:var(--muted);font-size:13px}
+    .options{display:grid;gap:10px;margin-top:14px}
+    .opt{display:flex;gap:10px;align-items:flex-start;border:1px solid #1f2937;border-radius:12px;padding:10px 12px;background:#0b1222;cursor:pointer;transition:.2s}
+    .opt input{margin-top:3px}
+    .opt:hover{border-color:#334155}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    button{border:0;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer}
+    .check{background:var(--brand);color:#04121a}
+    .next{background:#1f2937;color:#cbd5e1}
+    .reset{background:#334155;color:#e2e8f0}
+    .exp{margin-top:12px;border-left:3px solid #475569;padding-left:12px;color:#d1d5db}
+    .exp p{margin:.3rem 0}
+    .ok{border-color:var(--ok)!important}
+    .bad{border-color:var(--bad)!important}
+    .ok .badge{color:var(--ok)}
+    .bad .badge{color:var(--bad)}
+    .badge{font-weight:700}
+    .footer{opacity:.8;color:var(--muted);font-size:12px;margin:30px 16px 50px;text-align:center}
+    .scorebar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .bar{flex:1;height:10px;background:#0b1328;border-radius:6px;overflow:hidden;border:1px solid #1f2937}
+    .bar>span{display:block;height:100%;background:linear-gradient(90deg,#22d3ee,#60a5fa)}
+    .tag{padding:2px 8px;border:1px solid #1f2937;border-radius:999px;color:#cbd5e1;background:#0b1222}
+    .result{background:#0b1222;border:1px solid #1f2937;border-radius:14px;padding:12px}
+    @media (min-width:920px){.grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:600px){.qtitle{font-size:16px}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Simulado – 1Z0-1145-1 <span class="pill">Oracle Fusion AI Agent Studio Foundations</span></h1>
+    <div class="scorebar">
+      <div class="bar" aria-label="Progresso"><span id="progress" style="width:0%"></span></div>
+      <span class="tag" id="scoreTag">0/40 corretas</span>
+      <span class="tag" id="answeredTag">0/40 respondidas</span>
+    </div>
+  </div>
+</header>
+
+<main class="grid" id="quiz"></main>
+
+<div class="wrap">
+  <div class="result" id="final" hidden>
+    <h2 style="margin:0 0 6px">Resultado final</h2>
+    <p id="finalText" style="margin:.2rem 0 0"></p>
+  </div>
+</div>
+
+<footer class="footer">
+  Feito para estudo. Todas as questões foram compiladas a partir do exame de prática compartilhado pelo solicitante e ajustadas com explicações sucintas.
+</footer>
+
+<script>
+/**
+ * Estrutura do dado de cada questão
+ * {
+ *  id: 1,
+ *  multi: false|true,      // se permite múltiplas respostas
+ *  question: "texto da pergunta (EN)",
+ *  pt: "tradução resumida (PT)",
+ *  options: [
+ *    {text:"...", correct:true/false, why:"por que está certo/errado"}, ...
+ *  ]
+ * }
+ */
+const Q = [
+  // 1
+  {id:1,multi:true,
+   question:"Before publishing a new agent built from a template in AI Agent Studio, which two actions must be completed?",
+   pt:"Antes de publicar um novo agente criado a partir de um template, quais duas ações devem ser concluídas?",
+   options:[
+     {text:"Assign the agent to a business object group for version control",correct:false,why:"Agrupar por objeto de negócio não é pré‑requisito de publicação."},
+     {text:"Review and adjust the agent’s system prompt and topics as needed",correct:true,why:"Você deve revisar/ajustar persona (system prompt) e tópicos do template."},
+     {text:"Perform design time/offline testing to ensure the agent works correctly",correct:true,why:"Testes em design time garantem que o agente funcione como esperado antes de publicar."},
+     {text:"Configure user session parameters to enable semantic search",correct:false,why:"Parâmetros de sessão não são exigência de publicação do agente."}
+   ]},
+  // 2
+  {id:2,multi:true,
+   question:"An HR administrator wants to quickly deploy an agent to help employees navigate company benefits. Which two steps can be taken using prebuilt templates?",
+   pt:"RH quer implantar rapidamente um agente para dúvidas de benefícios. Quais dois passos usar no template pré‑construído?",
+   options:[
+     {text:"Import policy documents directly to the agent template",correct:false,why:"O upload de documentos é feito via Document tool; não é passo obrigatório do template."},
+     {text:"Modify the agent’s source code within the template editor",correct:false,why:"Templates não expõem código‑fonte; personaliza‑se por configuração."},
+     {text:"Customize the system prompt with company policy details",correct:true,why:"Ajuste a persona/instruções com as políticas da empresa."},
+     {text:"Adjust the agent’s topics to cover organization‑specific benefits scenarios",correct:true,why:"Amplie/refine tópicos para cenários de benefícios da organização."}
+   ]},
+  // 3
+  {id:3,multi:true,
+   question:"A finance team wants to automate narrative reports. Which two methods streamline report generation?",
+   pt:"Time de finanças quer automatizar relatórios narrativos. Quais dois métodos ajudam?",
+   options:[
+     {text:"Customize the system prompt to align tone and content to company standards",correct:true,why:"Garante tom/estilo padronizado nas narrativas."},
+     {text:"Enable multi‑language support by adjusting agent workflow settings",correct:false,why:"Não é configuração típica do workflow do template para esse fim."},
+     {text:"Change the data visualization library used by the template",correct:false,why:"Biblioteca de gráficos não é parte da automação narrativa do agente."},
+     {text:"Use a prebuilt agent template designed for narrative reporting",correct:true,why:"Acelera a entrega com capacidades prontas para narrativas."}
+   ]},
+  // 4
+  {id:4,multi:true,
+   question:"Which two agents are available as prebuilt templates in AI Agent Studio?",
+   pt:"Quais dois agentes existem como templates pré‑construídos?",
+   options:[
+     {text:"Payslip Agent",correct:true,why:"Disponível OOTB para holerites."},
+     {text:"Inventory Audit Agent",correct:false,why:"Não é listado como template padrão do Studio."},
+     {text:"Google Search Agent",correct:false,why:"Não há template OOTB para busca Google."},
+     {text:"Benefits Agent",correct:true,why:"Template OOTB para dúvidas de benefícios."}
+   ]},
+  // 5
+  {id:5,multi:false,
+   question:"What distinguishes an AI Agent in Oracle AI Agent Studio from a generative AI service?",
+   pt:"O que diferencia um Agente de IA no Studio de um serviço de IA generativa?",
+   options:[
+     {text:"AI Agents can perform actions within business applications; generative services summarize/create content",correct:true,why:"Agentes operam e executam ações em aplicativos; serviços gerativos focam em conteúdo."},
+     {text:"AI Agents perform scheduled infrastructure updates while generative services maintain security controls",correct:false,why:"Nenhum dos dois executa updates de infraestrutura ou controla segurança do sistema."},
+     {text:"Generative services oversee approval routing; AI Agents generate only instructional content",correct:false,why:"Agentes podem orquestrar aprovações e executar ações."},
+     {text:"AI Agents implement data encryption; generative services automate payroll",correct:false,why:"Declaração sem relação com a distinção real."}
+   ]},
+  // 6
+  {id:6,multi:false,
+   question:"Which tool enables an agent to send summary notifications to users after key transactions?",
+   pt:"Qual ferramenta permite o agente enviar resumos por notificação após transações?",
+   options:[
+     {text:"Business Object tool",correct:false,why:"Consulta/atua em dados do Fusion; não envia emails."},
+     {text:"Deep Link tool",correct:false,why:"Apenas redireciona para telas específicas."},
+     {text:"Email tool",correct:true,why:"Escreve e envia emails/resumos aos destinatários."},
+     {text:"Calculator tool",correct:false,why:"Não trata de notificações."}
+   ]},
+  // 7
+  {id:7,multi:false,
+   question:"A company wants an agent inside Oracle Fusion’s CRM to retrieve customer data. Which tool type should be used?",
+   pt:"Empresa quer agente no CRM do Fusion buscando dados de clientes. Qual ferramenta usar?",
+   options:[
+     {text:"Document tool",correct:false,why:"Serve para busca semântica em documentos."},
+     {text:"Email tool",correct:false,why:"Para comunicações, não para dados."},
+     {text:"External REST tool",correct:false,why:"Para sistemas fora do Fusion; aqui é CRM interno."},
+     {text:"Business Object tool",correct:true,why:"Conecta e transaciona com objetos de negócio do Fusion (CRM)."}
+   ]},
+  // 8
+  {id:8,multi:false,
+   question:"An agent must summarize information from uploaded company manuals to provide up‑to‑date answers. Which tool should be used?",
+   pt:"Agente precisa resumir manuais enviados para responder. Qual ferramenta usar?",
+   options:[
+     {text:"Accuracy tool",correct:false,why:"Mede acurácia; não lê manuais."},
+     {text:"Document tool",correct:true,why:"Habilita busca semântica e grounding em documentos não estruturados."},
+     {text:"Business Object tool",correct:false,why:"Focado em dados transacionais."},
+     {text:"Deep Link tool",correct:false,why:"Apenas direciona para páginas."}
+   ]},
+  // 9
+  {id:9,multi:false,
+   question:"To tailor a supplier negotiation agent’s persona and reasoning, what must you customize in the template?",
+   pt:"Para ajustar persona e raciocínio de um agente de negociação com fornecedores, o que editar no template?",
+   options:[
+     {text:"System prompts and topics",correct:true,why:"Define persona, tom e limites de atuação."},
+     {text:"Latency metrics",correct:false,why:"São métricas de desempenho, não conteúdo."},
+     {text:"Document tool chunk size",correct:false,why:"Ajuste técnico de indexação, não de persona."}
+   ]},
+  // 10
+  {id:10,multi:false,
+   question:"Developer needs to integrate data from a third‑party inventory system using its public API. Which tool?",
+   pt:"Desenvolvedor quer integrar estoque de um sistema de terceiros via API pública. Qual ferramenta?",
+   options:[
+     {text:"Document tool",correct:false,why:"Não integra APIs."},
+     {text:"External REST tool",correct:true,why:"Conecta a sistemas externos via REST."},
+     {text:"Email tool",correct:false,why:"Apenas envia emails."},
+     {text:"Business Object tool",correct:false,why:"Conecta a dados internos do Fusion."}
+   ]},
+  // 11
+  {id:11,multi:false,
+   question:"To confirm an agent’s logic improved after deployment, which capability should you use?",
+   pt:"Para confirmar que a lógica do agente melhorou após o deploy, qual capacidade usar?",
+   options:[
+     {text:"Use the Document tool to compare versions",correct:false,why:"Document tool não compara versões de lógica."},
+     {text:"Run a comparative analysis of the two versions",correct:true,why:"Avaliações lado‑a‑lado (evaluation runs) mostram evolução de qualidade."},
+     {text:"Perform a semantic search for similarity of the two versions",correct:false,why:"Similaridade semântica não valida lógica/qualidade."}
+   ]},
+  // 12
+  {id:12,multi:false,
+   question:"Where can a user find trace information to inspect tool calls and step‑by‑step inputs/outputs?",
+   pt:"Onde encontrar o trace para ver chamadas de ferramentas e I/O passo a passo?",
+   options:[
+     {text:"Performance Monitoring Tool",correct:false,why:"Foco em desempenho; não exibe o trace detalhado."},
+     {text:"Agent Studio Documentation",correct:false,why:"Documentação não mostra traces de execução."},
+     {text:"Metrics Reporting Dashboard",correct:true,why:"Inclui o recurso de agent tracing para acompanhar a execução."}
+   ]},
+  // 13
+  {id:13,multi:true,
+   question:"A sales leader wants agents to generate customer communications that match the company’s tone. Which two customizations apply?",
+   pt:"Líder de vendas quer comunicações no tom da empresa. Quais duas customizações?",
+   options:[
+     {text:"Disable LLM‑based content generation",correct:false,why:"Isso impediria gerar o conteúdo desejado."},
+     {text:"Modify the system prompt to specify tone and language preferences",correct:true,why:"Define tom/políticas de linguagem."},
+     {text:"Limit the agent to internal notification messages only",correct:false,why:"Restringe demais e não resolve tom."},
+     {text:"Create additional topics depicting various customer interaction scenarios",correct:true,why:"Amplia cobertura de cenários mantendo o tom."}
+   ]},
+  // 14
+  {id:14,multi:true,
+   question:"Pricing Promotions Agent needs industry‑specific compliance language in summaries. In which two ways can the controller customize the template?",
+   pt:"Agente de promoções precisa de linguagem de compliance por indústria. Quais duas ações?",
+   options:[
+     {text:"Add topics detailing specific compliance requirements by promotion type",correct:true,why:"Tópicos direcionados guiam respostas por tipo de promoção."},
+     {text:"Remove all access to past promotional data",correct:false,why:"Não é necessário nem recomendado para compliance."},
+     {text:"Change the AI model to a multilingual version",correct:false,why:"Multilíngua não resolve compliance."},
+     {text:"Update the system prompt with compliance language",correct:true,why:"Instruções claras garantem inclusão do texto obrigatório."}
+   ]},
+  // 15
+  {id:15,multi:true,
+   question:"Which two scenarios require an agent to use the External REST tool?",
+   pt:"Quais dois cenários pedem uso do External REST tool?",
+   options:[
+     {text:"When an agent needs to retrieve data from an internal compliance database",correct:true,why:"Base de compliance fora do Fusion → integração REST."},
+     {text:"When an agent needs to perform calculations on Fusion business objects",correct:false,why:"Cálculos com dados do Fusion não requerem REST externo."},
+     {text:"When an agent is expected to pause for a set period before responding",correct:false,why:"Isso é lógica/tempo, não integração."},
+     {text:"When an agent needs to access data from a third‑party logistics systems",correct:true,why:"Terceiros → integrar via REST."}
+   ]},
+  // 16
+  {id:16,multi:false,
+   question:"Which OOTB agent helps managers access employee information and initiate transactions (e.g., promotions) within one conversational interface?",
+   pt:"Qual agente OOTB ajuda gestores a acessar dados do empregado e iniciar transações (promoções) em uma interface?",
+   options:[
+     {text:"Pay Analyst agent",correct:false,why:"Foco em ciclo de folha."},
+     {text:"Personal and Employment Details Agent",correct:true,why:"Recupera dados pessoais/emprego e fornece deep links para transações de RH."},
+     {text:"Compensation Advisor",correct:false,why:"Foco em aprovar benefícios/compensação."},
+     {text:"Leave and Absence Analyst",correct:false,why:"Foco em ausências e férias."}
+   ]},
+  // 17
+  {id:17,multi:false,
+   question:"The HR team wants a self‑service agent answering questions about medical, dental, and vision benefits. Which OOTB template fits?",
+   pt:"RH quer agente de autoatendimento para dúvidas de benefícios médicos/odontológicos/visão. Qual template?",
+   options:[
+     {text:"Benefits Agent",correct:true,why:"Template específico para benefícios."},
+     {text:"SR Triage Agent",correct:false,why:"Foco em triagem de chamados de serviço."},
+     {text:"Narrative Reporting Agent",correct:false,why:"Foco em relatórios narrativos."},
+     {text:"Help Desk Knowledge Agent",correct:false,why:"Base de conhecimento de help desk, não benefícios."}
+   ]},
+  // 18
+  {id:18,multi:false,
+   question:"Which pre‑built agent in Oracle Fusion HCM enables users to review salary progression, additional compensation, and compare salary decisions across employees?",
+   pt:"Qual agente pré‑construído no HCM permite revisar progressão salarial, remuneração adicional e comparar decisões salariais?",
+   options:[
+     {text:"Personal and Employment Details Agent",correct:false,why:"Mostra dados pessoais/emprego, não análises de salário."},
+     {text:"Benefits Agent",correct:false,why:"Trata de benefícios, não salários."},
+     {text:"Compensation Agent",correct:true,why:"Voltado a análises e decisões de compensação."},
+     {text:"Payslip Agent",correct:false,why:"Foca em holerites individuais."}
+   ]},
+  // 19
+  {id:19,multi:false,
+   question:"A support lead wants an agent to categorize, triage, and route incoming service requests based on multiple criteria. Which OOTB template fits?",
+   pt:"Líder de suporte quer agente que categorize/triage e direcione chamados. Qual template OOTB?",
+   options:[
+     {text:"Service Request Resolution Agent",correct:false,why:"Foca em resolver, não em triagem/roteamento inicial."},
+     {text:"SR Triage Agent",correct:true,why:"Projetado para triagem e roteamento de SR."},
+     {text:"Product Agent",correct:false,why:"Não é template OOTB padrão."},
+     {text:"Customer Chat Agent",correct:false,why:"Genérico; não especializado em triagem de SR."}
+   ]},
+  // 20
+  {id:20,multi:true,
+   question:"When working in AI Agent Studio, what are two reasons to clone an out‑of‑the‑box (OOTB) agent template?",
+   pt:"No Agent Studio, quais dois motivos para clonar um template OOTB?",
+   options:[
+     {text:"To customize the agent’s system prompts and topics for organization‑specific requirements",correct:true,why:"Clonar permite personalizar persona/tópicos sem alterar o original."},
+     {text:"To extend functionality by adding new tools or unique integrations",correct:true,why:"Garante extensões sem impactar o template base."},
+     {text:"To bypass Fusion’s role‑based security controls",correct:false,why:"Nunca é permitido; segurança permanece."},
+     {text:"To publish the cloned agent directly to Oracle Partner Marketplace",correct:false,why:"Marketplace não é objetivo do clone."}
+   ]},
+  // 21
+  {id:21,multi:false,
+   question:"Which feature controls what sensitive customer data each agent can use?",
+   pt:"Qual recurso controla que dados sensíveis cada agente pode usar?",
+   options:[
+     {text:"Pre‑configured system prompts",correct:false,why:"Afetam comportamento, não acesso."},
+     {text:"Fusion’s role‑based access controls",correct:true,why:"RBAC define acesso a dados por papéis."},
+     {text:"Document tool folder permissions",correct:false,why:"Restringe pastas de documentos apenas."},
+     {text:"Integrations defined in REST tool",correct:false,why:"Integrações não substituem controle de acesso."}
+   ]},
+  // 22
+  {id:22,multi:false,
+   question:"What are the components of Oracle AI Agent Studio?",
+   pt:"Quais são os componentes do Oracle AI Agent Studio?",
+   options:[
+     {text:"Process orchestrators, data connectors, and security profiles",correct:false,why:"Mistura conceitos genéricos, não os do Studio."},
+     {text:"Agent teams, tools, templates, and topics",correct:true,why:"São os blocos nativos do Studio."},
+     {text:"Workflow templates, custom scripts, and scheduling triggers",correct:false,why:"Não correspondem aos componentes do Studio."}
+   ]},
+  // 23
+  {id:23,multi:false,
+   question:"You need an agent to fetch real‑time sales order status from an external logistics platform. Which tool helps build this automation?",
+   pt:"Buscar status de pedido em tempo real numa plataforma logística externa. Qual ferramenta usar?",
+   options:[
+     {text:"Business Object tool",correct:false,why:"Usado para dados internos do Fusion."},
+     {text:"User Session tool",correct:false,why:"Gerencia contexto de sessão."},
+     {text:"External REST tool",correct:true,why:"Integração com sistemas externos via API."},
+     {text:"Document tool",correct:false,why:"Busca em documentos."}
+   ]},
+  // 24
+  {id:24,multi:false,
+   question:"For critical decisions an agent might make, how to ensure actions are accurate and relevant to the customer’s inquiry?",
+   pt:"Para decisões críticas do agente, como garantir ações corretas e relevantes ao cliente?",
+   options:[
+     {text:"Use NLP to analyze the inquiry",correct:false,why:"Interpretar não valida decisões críticas."},
+     {text:"Integrate with an external CRM system",correct:false,why:"Dados não garantem validação."},
+     {text:"Implement human‑in‑the‑loop validation to review the agent’s responses",correct:true,why:"Revisão/aprovação humana antes da ação crítica."},
+     {text:"Use machine learning algorithms to train the agent",correct:false,why:"Treinar ajuda, mas não garante validação imediata."}
+   ]},
+  // 25
+  {id:25,multi:true,
+   question:"When configuring agents, which two types of tools can be included within agent workflows?",
+   pt:"Ao configurar agentes, quais dois tipos de ferramentas podem compor os fluxos?",
+   options:[
+     {text:"Formula Builder tools for financial forecasting",correct:false,why:"Não faz parte do Agent Studio."},
+     {text:"External REST tools for connecting to other systems",correct:true,why:"Para integrações externas."},
+     {text:"Survey tools for collecting employee feedback",correct:false,why:"Não são ferramentas nativas de workflow."},
+     {text:"Business Object tool for data transactions",correct:true,why:"Para ler/escrever dados do Fusion."}
+   ]},
+  // 26
+  {id:26,multi:false,
+   question:"When would you use a multi‑agent solution?",
+   pt:"Quando usar uma solução com múltiplos agentes?",
+   options:[
+     {text:"When addressing inquiries requiring only a single data lookup",correct:false,why:"Caso simples → um agente basta."},
+     {text:"When the agent is sending standardized notifications without processing",correct:false,why:"Tarefa simples não requer vários agentes."},
+     {text:"For orchestrating complex processes involving multiple specialized tasks",correct:true,why:"Vários agentes colaboram por especialidade."}
+   ]},
+  // 27
+  {id:27,multi:false,
+   question:"Retail company wants to automate order‑to‑cash to generate invoices and send directly to customers. Which tool set is required?",
+   pt:"Varejista quer automatizar order‑to‑cash gerando e enviando faturas. Qual conjunto de ferramentas?",
+   options:[
+     {text:"External REST tool + Deep Link tool",correct:false,why:"Não cobre acesso aos dados de fatura nem envio."},
+     {text:"Notification tool + User Session tool",correct:false,why:"Alertas/tema de UI não resolvem faturas."},
+     {text:"Business Object tool + Email tool",correct:true,why:"BO para dados de fatura; Email para envio ao cliente."},
+     {text:"Document tool + Calculator tool",correct:false,why:"Upload/cálculo não é o caminho aqui."}
+   ]},
+  // 28
+  {id:28,multi:false,
+   question:"How is the External REST tool utilized within Oracle AI Agent Studio?",
+   pt:"Como o External REST é utilizado no Agent Studio?",
+   options:[
+     {text:"It helps create deep links within Fusion Applications",correct:false,why:"Isso é função do Deep Link tool."},
+     {text:"It enables agents to exchange information with systems outside Fusion via defined APIs",correct:true,why:"Propósito central do External REST."},
+     {text:"It generates templates for personalized UIs across channels",correct:false,why:"Não cria interfaces."}
+   ]},
+  // 29
+  {id:29,multi:false,
+   question:"How do you use the agent tracing feature in the Metrics Reporting Dashboard?",
+   pt:"Como usar o recurso de tracing no Metrics Reporting Dashboard?",
+   options:[
+     {text:"To modify an agent’s security roles directly from trace files",correct:false,why:"Permissões não são alteradas pelo trace."},
+     {text:"To review specific prompts for analyzing inputs, outputs, and performance metrics",correct:true,why:"O tracing mostra prompts, I/O e chamadas de ferramentas."},
+     {text:"To update security permissions based on detected vulnerabilities",correct:false,why:"Não altera segurança automaticamente."}
+   ]},
+  // 30
+  {id:30,multi:true,
+   question:"Executives need a high‑level report on error frequency, how quickly most queries are resolved, and overall quality. Which two metrics deliver the insights?",
+   pt:"Executivos querem relatório de erros, rapidez nas respostas e qualidade geral. Quais duas métricas entregam isso?",
+   options:[
+     {text:"Prompt Injection",correct:false,why:"Métrica de segurança, não performance/qualidade geral."},
+     {text:"LLM Requests",correct:false,why:"Volume de chamadas não mede velocidade/qualidade."},
+     {text:"Median Correctness",correct:true,why:"Indica qualidade/precisão das respostas."},
+     {text:"Error Rate and Median/P99 Latency Reporting",correct:true,why:"Taxa de erro + latência cobrem estabilidade e rapidez."}
+   ]},
+  // 31
+  {id:31,multi:false,
+   question:"Which metric is used to calculate the financial cost of using an AI Agent?",
+   pt:"Qual métrica calcula o custo financeiro do uso do agente?",
+   options:[
+     {text:"Latency",correct:false,why:"Mede tempo, não custo."},
+     {text:"Accuracy",correct:false,why:"Qualidade, não custo."},
+     {text:"Number of users",correct:false,why:"Quantidade de usuários não define cobrança direta."},
+     {text:"Tokens consumed",correct:true,why:"Cobrança é proporcional aos tokens processados (entrada+saída)."}
+   ]},
+  // 32
+  {id:32,multi:false,
+   question:"Analyst wants a single place continuously updated to monitor quality over time (correctness and safety results). Which feature?",
+   pt:"Analista quer um ponto único atualizado continuamente para monitorar qualidade (correção e segurança). Qual recurso?",
+   options:[
+     {text:"Evaluation Set Uploader",correct:false,why:"Serve para subir conjuntos de teste."},
+     {text:"Token Usage Report",correct:false,why:"Foca em consumo/custo."},
+     {text:"Metrics Reporting Dashboard",correct:true,why:"Consolida métricas contínuas de qualidade e segurança."},
+     {text:"Business Object tool",correct:false,why:"Dados transacionais, não métricas."}
+   ]},
+  // 33
+  {id:33,multi:false,
+   question:"How do you assess the output quality of two versions of an agent?",
+   pt:"Como avaliar a qualidade de saída de duas versões do agente?",
+   options:[
+     {text:"Change the agent’s system prompt while they are running",correct:false,why:"Muda comportamento, não compara qualidade."},
+     {text:"Run an evaluation of each agent using expected inputs and outputs",correct:true,why:"Comparação controlada com dataset esperado."},
+     {text:"Analyze token counts for each agent in the dashboard",correct:false,why:"Tokens medem custo, não qualidade."}
+   ]},
+  // 34
+  {id:34,multi:false,
+   question:"During agent testing, how do latency and token metrics help ensure quality?",
+   pt:"Em testes, como latência e tokens ajudam a garantir qualidade?",
+   options:[
+     {text:"Confirm wait time is acceptable and indicate financial cost of running the agent",correct:true,why:"Latência = velocidade; tokens = custo. Ambos impactam experiência e viabilidade."},
+     {text:"Capture time saved due to process optimization and user adoption",correct:false,why:"Isso são KPIs de negócio, não métricas técnicas."},
+     {text:"Confirm accuracy of responses and overall efficiency",correct:false,why:"Acurácia é medida por avaliações, não por latência/tokens."}
+   ]},
+  // 35
+  {id:35,multi:true,
+   question:"Which two features are essential for structured agent testing?",
+   pt:"Quais duas funcionalidades são essenciais para testes estruturados?",
+   options:[
+     {text:"Comparison of evaluation runs for changes",correct:true,why:"Permite detectar regressões/melhorias."},
+     {text:"Dynamic role‑based credential swapping for access",correct:false,why:"Relacionado a acesso/segurança, não a testes."},
+     {text:"Evaluation test data management for storing test cases",correct:true,why:"Mantém casos de teste consistentes e reusáveis."},
+     {text:"Overclocking application servers for testing",correct:false,why:"Irrelevante ao contexto do Studio."}
+   ]},
+  // 36
+  {id:36,multi:false,
+   question:"Why would you use agent tracing during quality testing?",
+   pt:"Por que usar agent tracing durante testes de qualidade?",
+   options:[
+     {text:"To review the number of embedded vectors created from documents",correct:false,why:"Contagem de embeddings não é objetivo do tracing."},
+     {text:"To add or remove business object fields",correct:false,why:"Isso é configuração de integrações/dados."},
+     {text:"To visualize execution steps and identify process errors",correct:true,why:"Tracing é o “debug” visual do agente."}
+   ]},
+  // 37
+  {id:37,multi:true,
+   question:"Which two dashboard metrics are useful for monitoring agent performance at run time?",
+   pt:"Quais duas métricas de dashboard são úteis para monitorar a performance em execução?",
+   options:[
+     {text:"User interface color scheme",correct:false,why:"Estética não mede performance."},
+     {text:"Number of team meetings held",correct:false,why:"Indicador organizacional, não técnico."},
+     {text:"Median or P99 latency",correct:true,why:"Mede rapidez de resposta."},
+     {text:"Correctness score",correct:true,why:"Indica qualidade das respostas."}
+   ]},
+  // 38
+  {id:38,multi:false,
+   question:"Which set of metrics evaluates an agent’s security?",
+   pt:"Qual conjunto de métricas avalia a segurança de um agente?",
+   options:[
+     {text:"User and Token count",correct:false,why:"Uso/custo, não segurança."},
+     {text:"LLM requests and latency",correct:false,why:"Desempenho, não segurança."},
+     {text:"Prompt injection and content safety metrics",correct:true,why:"Avaliam resistência a manipulação e segurança de conteúdo."}
+   ]},
+  // 39
+  {id:39,multi:false,
+   question:"Agent will retrieve and summarize shift data from Fusion. To minimize exposure of unrelated/confidential information, what should be done? (single choice)",
+   pt:"Agente vai buscar e resumir dados de turnos. Para minimizar exposição de dados confidenciais, o que fazer? (uma opção)",
+   options:[
+     {text:"Set the agent for public data sharing to promote transparency",correct:false,why:"Aumenta o risco."},
+     {text:"Limit queries and responses to specific, relevant business object fields",correct:false,why:"É bom, mas o controle mais robusto é alinhar permissões (RBAC)."},
+     {text:"Align agent access rules with existing user permissions",correct:true,why:"Respeita RBAC do Fusion: agente só acessa o que o usuário pode."}
+   ]},
+  // 40
+  {id:40,multi:true,
+   question:"A service manager customizes an agent to retrieve customer data. Which two practices keep sensitive information secure?",
+   pt:"Gerente de serviços customiza agente para buscar dados de clientes. Quais duas práticas protegem dados sensíveis?",
+   options:[
+     {text:"Prune the response fields from business object queries to only what’s needed",correct:true,why:"Menos dados retornados → menor exposição."},
+     {text:"Remove document tools so data cannot be summarized",correct:false,why:"Remover Document não resolve segurança dos dados transacionais."},
+     {text:"Review usage metrics regularly on the Metrics Dashboard",correct:false,why:"Útil para monitorar, não é controle de segurança."},
+     {text:"Implement role‑based controls to allow only authorized roles to execute certain queries",correct:true,why:"RBAC restringe acesso por papéis autorizados."}
+   ]}
+];
+
+// ===== Render =====
+const $quiz = document.getElementById('quiz');
+const $scoreTag = document.getElementById('scoreTag');
+const $answeredTag = document.getElementById('answeredTag');
+const $progress = document.getElementById('progress');
+const $final = document.getElementById('final');
+const $finalText = document.getElementById('finalText');
+
+let answered = 0, correct = 0;
+
+function render(){
+  Q.forEach(q => {
+    const card = document.createElement('section');
+    card.className = 'card';
+    card.id = 'q'+q.id;
+    card.innerHTML = `
+      <div class="qhead">
+        <span class="qid">Q${q.id}</span>
+        <div>
+          <h3 class="qtitle">${q.question}</h3>
+          <p class="subtitle">${q.pt}</p>
+        </div>
+      </div>
+      <div class="options" role="group" aria-label="Opções da questão ${q.id}">
+        ${q.options.map((opt,idx)=>`
+          <label class="opt" data-idx="${idx}">
+            <input type="${q.multi?'checkbox':'radio'}" name="q${q.id}" />
+            <span>${opt.text}</span>
+          </label>
+        `).join('')}
+      </div>
+      <div class="actions">
+        <button class="check">Verificar</button>
+        <button class="reset" title="Limpar seleção">Limpar</button>
+      </div>
+      <div class="exp" hidden></div>
+    `;
+
+    // wire
+    const optionsEls = card.querySelectorAll('.opt');
+    const btnCheck = card.querySelector('.check');
+    const btnReset = card.querySelector('.reset');
+    const exp = card.querySelector('.exp');
+
+    btnReset.addEventListener('click', ()=>{
+      optionsEls.forEach(l=>{const i=l.querySelector('input'); i.checked=false; l.classList.remove('ok','bad')});
+      exp.hidden=true; exp.innerHTML='';
+    });
+
+    btnCheck.addEventListener('click', ()=>{
+      // gather selection
+      const picked = [];
+      optionsEls.forEach((l,i)=>{ if(l.querySelector('input').checked) picked.push(i) });
+      if(picked.length===0){
+        exp.hidden=false;exp.innerHTML='<p class="badge" style="color:var(--warn)">Selecione ao menos uma opção.</p>';return;
+      }
+      // evaluate
+      const correctIdx = q.options.map((o,i)=>o.correct?i:null).filter(x=>x!==null);
+      const isCorrect = picked.length===correctIdx.length && picked.every(i=>correctIdx.includes(i));
+
+      // mark
+      optionsEls.forEach((l,i)=>{
+        l.classList.remove('ok','bad');
+        if(q.options[i].correct){ l.classList.add('ok'); }
+        else if(picked.includes(i)){ l.classList.add('bad'); }
+      });
+
+      // explanation block
+      const list = q.options.map((o,i)=>{
+        const icon = o.correct ? '✅' : (picked.includes(i)? '❌' : '•');
+        const why = o.why.replace(/</g,'&lt;');
+        return `<p>${icon} <span class="badge">${o.text}</span> — ${why}</p>`;
+      }).join('');
+      exp.hidden=false;
+      exp.innerHTML = `<p><strong>${isCorrect? 'Acertou ✅' : 'Errou ❌'}</strong> ${q.multi? '(múltipla escolha)' : ''}</p>${list}`;
+
+      // score
+      if(!card.dataset.done){
+        answered++;
+        if(isCorrect) correct++;
+        card.dataset.done = '1';
+        updateBars();
+        if(answered===Q.length) finish();
+      }
+    });
+
+    $quiz.appendChild(card);
+  });
+}
+
+function updateBars(){
+  $scoreTag.textContent = `${correct}/${Q.length} corretas`;
+  $answeredTag.textContent = `${answered}/${Q.length} respondidas`;
+  $progress.style.width = `${Math.round(answered/Q.length*100)}%`;
+}
+
+function finish(){
+  $final.hidden=false;
+  const pct = Math.round(correct/Q.length*100);
+  const verdict = pct>=70 ? 'Aprovado (benchmark de 70%)' : 'Continue revisando';
+  $finalText.innerHTML = `Você acertou <b>${correct}</b> de <b>${Q.length}</b> questões (<b>${pct}%</b>). <br>${verdict}.`;
+  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+}
+
+render();
+</script>
+</body>
+</html>
