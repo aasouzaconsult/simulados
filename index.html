@@ -5,6 +5,8 @@
     <link rel="icon" href="simulado.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Simulados - Tudo em Um!</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         /* --- ESTILOS CSS --- */
         body {
@@ -1129,9 +1131,59 @@
             currentQuiz = null;
         });
     </script>
+
+  <footer style="text-align: center; padding: 10px; font-size: 0.9em; color: #fff; display: flex; justify-content: center; align-items: center;">
+      <img src="fire.png" alt="Ícone de Fogo" style="width: 20px; height: 20px; margin-right: 8px;">
+      <p>Visitas nesta página: <span id="contador">Carregando...</span></p>
+  </footer>
+
+  <script type="module">
+        // Importa as funções necessárias do Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+        // Configuração do Firebase (substitua pelos seus dados)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLYKPCratpfc4C_t5B6ImoEaHs6RixY1c",
+            authDomain: "pagina-f081e.firebaseapp.com",
+            projectId: "pagina-f081e",
+            storageBucket: "pagina-f081e.firebasestorage.app",
+            messagingSenderId: "210197185880",
+            appId: "1:210197185880:web:5dc122279a79d6c46bd12d"
+        };
+
+        // Inicializa o Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Referência ao documento do contador - https://console.firebase.google.com/project/pagina-f081e/firestore/databases/-default-/data/~2Fvisitas~2Fcontador
+        const contadorRef = doc(db, "visitas", "contador");
+
+        async function atualizarContador() {
+            try {
+                const docSnap = await getDoc(contadorRef);
+                if (docSnap.exists()) {
+                    let acessos = docSnap.data().acessos + 1;
+                    await updateDoc(contadorRef, { acessos: acessos });
+                    document.getElementById("contador").textContent = acessos;
+                } else {
+                    await setDoc(contadorRef, { acessos: 1 });
+                    document.getElementById("contador").textContent = 1;
+                }
+            } catch (error) {
+                console.error("Erro ao atualizar o contador:", error);
+                document.getElementById("contador").textContent = "Erro";
+            }
+        }
+
+        atualizarContador();
+  </script>
+
+    
 </body>
 
 </html>
+
 
 
 
